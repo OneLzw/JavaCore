@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 public class OptionalTest {
 
@@ -33,5 +30,27 @@ public class OptionalTest {
         } catch (NewLocalException e) {
             e.printStackTrace();
         }
+
+        findFirst = strArray.stream().filter(s -> s.contains("在")).findFirst();
+        findFirst.ifPresent(s -> System.out.println(s + " contain 在2"));
+
+        HashSet<Object> results = new HashSet<>();
+        findFirst.ifPresent(results::add);
+        Optional<Boolean> addResult = findFirst.map(results::add);
+        System.out.println("s : " + addResult);
+
+        System.out.println("1 : " + inverse(4.0).flatMap(OptionalTest::squareRoot));
+        System.out.println("2 : " + inverse(-4.0).flatMap(OptionalTest::squareRoot));
+        System.out.println("3 : " + inverse(0.0).flatMap(OptionalTest::squareRoot));
+        Optional<Double> result2 = Optional.of(-4.0).flatMap(OptionalTest::inverse).flatMap(OptionalTest::squareRoot);
+        System.out.println("4 : " + result2);
+    }
+
+    public static Optional<Double> inverse (Double d) {
+        return d == 0 ? Optional.empty() : Optional.of(1 / d);
+    }
+
+    public static Optional<Double> squareRoot (Double d) {
+        return d < 0 ? Optional.empty() : Optional.of(Math.sqrt(d));
     }
 }
