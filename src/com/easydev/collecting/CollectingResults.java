@@ -72,18 +72,4 @@ public class CollectingResults {
         System.out.println("Foreach ; ");
         noVowels().forEach(System.out::println);
     }
-
-    @Test
-    public void test1 () {
-        int line = 0;
-        while (line < 5000) {
-            for (int i = 0 ; i < 200 ; i++) {
-                int i1 = Math.random() > 0.5 ? 0 : 1;
-                System.out.print("\033[40;32m" + i1 +"\033[5m");
-
-            }
-            line++;
-            System.out.println();
-        }
-    }
 }
